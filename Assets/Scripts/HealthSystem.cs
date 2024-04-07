@@ -15,6 +15,14 @@ public class HealthSystem : MonoBehaviour
 
     private void CurrentVida(int damage)
     {
-      
+        health += damage;
+        if (health <= 0)
+        {
+            GameController.OnLose?.Invoke();
+        }
+    }
+    private int GetVida()
+    {
+        return health ;
     }
 }

@@ -6,9 +6,16 @@ using System;
 public class PlayerController : MonoBehaviour
 {
     PlayerInput playerInput;
-    Vector2 direciont2D;
     Rigidbody2D rgb;
-    [SerializeField] float speed;
+    [Header("Colores")]
+    List<Color> listColores;
+    bool canChangeColor=true;
+    int idColors=0;
+    [Header("Movimiento")]
+    Vector2 direciont2D;
+    [SerializeField] float speed=5;
+    [Header("Salto")]
+    [SerializeField] float forceJump=2;
     public bool isInFloor = true;
     public int nJumps = 2;
 
@@ -22,7 +29,10 @@ public class PlayerController : MonoBehaviour
     }
     void Start()
     {
-        
+        listColores = new List<Color>();
+        listColores.Add(Color.blue);
+        listColores.Add(Color.green);
+        listColores.Add(Color.black);
     }
 
     // Update is called once per frame
@@ -32,14 +42,13 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(transform.position, Vector3.down, Color.red);
         if (hit)
         {
-            Debug.Log("Estoy tocando" + layer);
+            //Debug.Log("Estoy tocando" + layer);
             isInFloor = true;
             nJumps = 2;
         }
         else
         {
             isInFloor = false;
-            --nJumps;
         }              
     }
 
@@ -50,45 +59,109 @@ public class PlayerController : MonoBehaviour
             rgb.velocity = new Vector2(direciont2D.x * speed, rgb.velocity.y);
         }
         else { rgb.velocity = new Vector2(0, rgb.velocity.y); }
-
-        if (isInFloor || nJumps>0)
-        {            
-            if(!isInFloor && nJumps == 1)
-            {
-                --nJumps;
-            }
-            if (direciont2D.y > 0)
-            {
-                rgb.AddForce(Vector2.up * 0.5f, ForceMode2D.Impulse);
-            }
-        }
-     
     }
 
     public void onMovementPlayer(InputAction.CallbackContext value)
     {
         direciont2D = value.ReadValue<Vector2>();
     }
+    public void onJump(InputAction.CallbackContext value)
+    {
+        if (value.started)
+        {       
+            if(Time.timeScale == 1)
+            {
+                if (!isInFloor)
+                {
+                    --nJumps;
+                }
+                else
+                {
+                    --nJumps;
+                }
+                if (nJumps > 0)
+                {
+                    rgb.AddForce(Vector2.up * forceJump, ForceMode2D.Impulse);
+                }
+            }           
+        }
+    }
     public void onChangeColor(InputAction.CallbackContext value)
     {
         if (value.started)
         {
-            Debug.Log("Cambiar al siguiente color");
+            if (Time.timeScale == 1)
+            {
+                if (canChangeColor)
+                {
+                    idColors++;
+                    int id = idColors % 3;
+                    Debug.Log(id);
+                    //Debug.Log(listColores[0]);
+                    gameObject.GetComponent<SpriteRenderer>().color = listColores[id];
+                }
+            }
+            
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 6)
         {
-            Debug.Log("Estas tocando " + 6);
+            //corazones
+            collision.gameObject.SetActive(false);
+            HealthSystem.UdateHealth(5);
+            
         }
         if (collision.gameObject.layer == 7)
         {
-            Debug.Log("Estas tocando " + 7);
+            //enemigos azules
+            canChangeColor = false;
+            if (gameObject.GetComponent<SpriteRenderer>().color != collision.gameObject.GetComponent<SpriteRenderer>().color)
+            {                
+                Debug.Log("ChocasteConUnazules");
+                HealthSystem.UdateHealth(-7);
+            }
         }
         if (collision.gameObject.layer == 8)
         {
-            Debug.Log("Estas tocando " + 8);
+            //enemigos verdes
+            canChangeColor = false;
+            if (gameObject.GetComponent<SpriteRenderer>().color!= collision.gameObject.GetComponent<SpriteRenderer>().color)
+            {                
+                Debug.Log("ChocasteConUnVerde");
+                HealthSystem.UdateHealth(-5);
+           
+            }
+
+        }
+        if(collision.gameObject.tag == "Coins")
+        {
+            collision.gameObject.SetActive(false);
+            PointSystem.UpdatePoints(10);            
+        }
+        if (collision.gameObject.tag == "Estrella")
+        {
+            collision.gameObject.SetActive(false);
+            GameController.OnWin?.Invoke();
+        }
+        if (collision.gameObject.tag == "Muerte")
+        {           
+            GameController.OnLose?.Invoke();
+        }
+    }
+  
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 7)
+        {
+            Debug.Log("sali del azul");
+            canChangeColor = true;
+        }
+        if (collision.gameObject.layer == 8)
+        {
+            Debug.Log("sali del verde");
+            canChangeColor = true;
         }
     }
     private void OnDisable()

@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class PointSystem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static Action<int> GainsPoint;
+    public static Action<int> UpdatePoints;
+    public int points=0;
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        GainsPoint = CurrentPoints;
+        UpdatePoints = CurrentPoints;
+    }
+    private void CurrentPoints(int pnts)
+    {
+        points += pnts;
     }
 }
