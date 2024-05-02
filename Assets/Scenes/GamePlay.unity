@@ -459,8 +459,11 @@ MonoBehaviour:
   pause: 0
   PanelWin: {fileID: 1191842478}
   PanelLose: {fileID: 1928639014}
+  scenes: {fileID: 1883150597}
   lose: {fileID: 11400000, guid: a2dbf36c6e9b71845953c846a4819388, type: 2}
   win: {fileID: 11400000, guid: b799be9e0904fb0419a4dc44a2af5b67, type: 2}
+  score: {fileID: 11400000, guid: c99d431bafc1f04448353c88e8aa6411, type: 2}
+  TimeR: {fileID: 11400000, guid: 2053d2f419033b0449dcfda711ff89c5, type: 2}
 --- !u!4 &201108986
 Transform:
   m_ObjectHideFlags: 0
@@ -4505,8 +4508,9 @@ MonoBehaviour:
   - {fileID: 690112109}
   - {fileID: 761420339}
   healthSystem: {fileID: 201108984}
-  pointSystem: {fileID: 201108983}
   pausePanel: {fileID: 545807090}
+  Score: {fileID: 11400000, guid: c99d431bafc1f04448353c88e8aa6411, type: 2}
+  TimeR: {fileID: 11400000, guid: 2053d2f419033b0449dcfda711ff89c5, type: 2}
 --- !u!4 &1883150596
 Transform:
   m_ObjectHideFlags: 0

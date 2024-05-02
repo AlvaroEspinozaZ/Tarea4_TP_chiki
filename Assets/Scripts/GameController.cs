@@ -12,12 +12,19 @@ public class GameController : MonoBehaviour
     public  GameObject PanelWin;
     public GameObject PanelLose;
 
+    [Header("SceneController")]
+
+    [SerializeField] private SceneController scenes;
     [Header("Handlers")]
     [SerializeField] private HandleMessage lose;
     [SerializeField] private HandleMessage win;
+    [SerializeField] private GlobalValues score;
+    [SerializeField] private GlobalValues TimeR;
     private void Awake()
     {
         Time.timeScale = 1;
+        score.ValueInt = 0;
+        TimeR.ValueFloat = 0;
     }
     private void OnEnable()
     {
@@ -34,13 +41,15 @@ public class GameController : MonoBehaviour
 
     private void GoWin()
     {
-        PanelWin.SetActive(true);
+        //PanelWin.SetActive(true);
         Time.timeScale = 0;
+        scenes.IrScene(2);
     }
     private void GoEnd()
     {
-        PanelLose.SetActive(true);
+        //PanelLose.SetActive(true);
         Time.timeScale = 0;
+        scenes.IrScene(2);
     }
     public void PauseBtn()
     {

@@ -9,7 +9,7 @@ public class SceneController : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-    public void IrScene()
+    public void IrScene(int ScenaToGo)
     {
         SceneManager.LoadScene(ScenaToGo);
     }

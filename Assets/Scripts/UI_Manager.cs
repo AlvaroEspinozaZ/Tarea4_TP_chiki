@@ -8,9 +8,11 @@ public class UI_Manager : MonoBehaviour
     public Text[] Scoretxts;
     public Text[] Timetxt;
     public HealthSystem healthSystem;
-    public PointSystem pointSystem;
+    
     public GameObject pausePanel;
-
+    [Header("Global Values")]
+    public GlobalValues Score;
+    public GlobalValues TimeR;
     float timer = 0;
     void Start()
     {
@@ -21,7 +23,7 @@ public class UI_Manager : MonoBehaviour
 
     void Update()
     {
-        timer += Time.deltaTime;
+        TimeR.ValueFloat += Time.deltaTime;
         
        
        
@@ -34,7 +36,7 @@ public class UI_Manager : MonoBehaviour
         {
             for (int i = 0; i < Scoretxts.Length; i++)
             {
-                Scoretxts[i].text = "Score: " + pointSystem.score.ValueInt;
+                Scoretxts[i].text = "Score: " + Score.ValueInt;
 
             }
         }
@@ -42,7 +44,7 @@ public class UI_Manager : MonoBehaviour
         {
             for (int i = 0; i < Timetxt.Length; i++)
             {
-                Timetxt[i].text = "Time: " + (int)timer;
+                Timetxt[i].text = "Time: " + (int)TimeR.ValueFloat;
             }
         }
     }
