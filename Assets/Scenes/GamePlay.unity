@@ -333,7 +333,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a52a345c50bb804c8253c868bdd0e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: {fileID: 11400000, guid: c99d431bafc1f04448353c88e8aa6411, type: 2}
   points: 0
+  updatePoints: {fileID: 11400000, guid: 429b0f92ddfeeaa4596f4118b83bd393, type: 2}
 --- !u!114 &201108984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,6 +349,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
+  updateLife: {fileID: 11400000, guid: 53f98d8b5a48afa44a22396b1f58a619, type: 2}
+  lose: {fileID: 11400000, guid: a2dbf36c6e9b71845953c846a4819388, type: 2}
 --- !u!114 &201108985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,6 +367,8 @@ MonoBehaviour:
   pause: 0
   PanelWin: {fileID: 1191842478}
   PanelLose: {fileID: 1928639014}
+  lose: {fileID: 11400000, guid: a2dbf36c6e9b71845953c846a4819388, type: 2}
+  win: {fileID: 11400000, guid: b799be9e0904fb0419a4dc44a2af5b67, type: 2}
 --- !u!4 &201108986
 Transform:
   m_ObjectHideFlags: 0
@@ -2311,8 +2317,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1883150595}
-        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+      - m_Target: {fileID: 1883150597}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
         m_MethodName: ReiniciarElJuego
         m_Mode: 1
         m_Arguments:
@@ -2483,7 +2489,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2603,6 +2609,10 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 1
+  updateLife: {fileID: 11400000, guid: 53f98d8b5a48afa44a22396b1f58a619, type: 2}
+  updatePoints: {fileID: 11400000, guid: 429b0f92ddfeeaa4596f4118b83bd393, type: 2}
+  win: {fileID: 11400000, guid: b799be9e0904fb0419a4dc44a2af5b67, type: 2}
+  lose: {fileID: 11400000, guid: a2dbf36c6e9b71845953c846a4819388, type: 2}
 --- !u!114 &1066175566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3158,8 +3168,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1883150595}
-        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+      - m_Target: {fileID: 1883150597}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
         m_MethodName: IrScene
         m_Mode: 1
         m_Arguments:
@@ -4405,8 +4415,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1883150595}
-        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+      - m_Target: {fileID: 1883150597}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
         m_MethodName: ReiniciarElJuego
         m_Mode: 1
         m_Arguments:
@@ -4465,6 +4475,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1883150596}
   - component: {fileID: 1883150595}
+  - component: {fileID: 1883150597}
   m_Layer: 0
   m_Name: UI_Manager
   m_TagString: Untagged
@@ -4496,7 +4507,6 @@ MonoBehaviour:
   healthSystem: {fileID: 201108984}
   pointSystem: {fileID: 201108983}
   pausePanel: {fileID: 545807090}
-  ScenaToGo: 1
 --- !u!4 &1883150596
 Transform:
   m_ObjectHideFlags: 0
@@ -4512,6 +4522,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1883150597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883150594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b6fea569ce0feb458cad79e259d4ac6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScenaToGo: 0
 --- !u!1 &1928639014
 GameObject:
   m_ObjectHideFlags: 0
@@ -4839,8 +4862,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1883150595}
-        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+      - m_Target: {fileID: 1883150597}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
         m_MethodName: IrScene
         m_Mode: 1
         m_Arguments:

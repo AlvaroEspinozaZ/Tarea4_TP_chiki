@@ -6,10 +6,15 @@ using System;
 [CreateAssetMenu(fileName = "Handle", menuName = "Handle/Message")]
 public class HandleMessage : ScriptableObject
 {
-    public event Action<int> ActionGeneral;
+    public event Action<int> ActionGeneralInt;
+    public event Action ActionGeneral;
 
-    public void CallEvent(int value)
+    public void CallEventInt(int value)
     {
-        ActionGeneral?.Invoke(value);
+        ActionGeneralInt?.Invoke(value);
+    }
+    public void CallEventGeneral()
+    {
+        ActionGeneral?.Invoke();
     }
 }

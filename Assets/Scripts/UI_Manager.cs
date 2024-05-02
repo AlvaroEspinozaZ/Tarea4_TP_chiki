@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 public class UI_Manager : MonoBehaviour
 {
     public Text Vidastxt;
@@ -11,7 +10,7 @@ public class UI_Manager : MonoBehaviour
     public HealthSystem healthSystem;
     public PointSystem pointSystem;
     public GameObject pausePanel;
-    public int ScenaToGo;
+
     float timer = 0;
     void Start()
     {
@@ -35,7 +34,7 @@ public class UI_Manager : MonoBehaviour
         {
             for (int i = 0; i < Scoretxts.Length; i++)
             {
-                Scoretxts[i].text = "Score: " + pointSystem.points;
+                Scoretxts[i].text = "Score: " + pointSystem.score.ValueInt;
 
             }
         }
@@ -57,14 +56,6 @@ public class UI_Manager : MonoBehaviour
         {
             pausePanel.SetActive(true);
         }
-    }
-    public void ReiniciarElJuego()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-    public void IrScene()
-    {
-        SceneManager.LoadScene(ScenaToGo);
     }
 
 }

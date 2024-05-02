@@ -22,6 +22,12 @@ public class PlayerController : MonoBehaviour
     [Header("Raycast")]
     public float distance =2;
     public LayerMask layer;
+
+    [Header("Handlers")]
+    [SerializeField] private HandleMessage updateLife;
+    [SerializeField] private HandleMessage updatePoints;
+    [SerializeField] private HandleMessage win;
+    [SerializeField] private HandleMessage lose;
     private void Awake()
     {
         rgb = GetComponent<Rigidbody2D>();
@@ -110,8 +116,8 @@ public class PlayerController : MonoBehaviour
         {
             //corazones
             collision.gameObject.SetActive(false);
-            HealthSystem.UdateHealth(5);
-            
+            updateLife.CallEventInt(5);
+
         }
         if (collision.gameObject.layer == 7)
         {
@@ -120,7 +126,7 @@ public class PlayerController : MonoBehaviour
             if (gameObject.GetComponent<SpriteRenderer>().color != collision.gameObject.GetComponent<SpriteRenderer>().color)
             {                
                 Debug.Log("ChocasteConUnazules");
-                HealthSystem.UdateHealth(-7);
+                updateLife.CallEventInt(-7);
             }
         }
         if (collision.gameObject.layer == 8)
@@ -130,24 +136,25 @@ public class PlayerController : MonoBehaviour
             if (gameObject.GetComponent<SpriteRenderer>().color!= collision.gameObject.GetComponent<SpriteRenderer>().color)
             {                
                 Debug.Log("ChocasteConUnVerde");
-                HealthSystem.UdateHealth(-5);
-           
+                updateLife.CallEventInt(-5);
+
             }
 
         }
         if(collision.gameObject.tag == "Coins")
         {
             collision.gameObject.SetActive(false);
-            PointSystem.UpdatePoints(10);            
+            //PointSystem.UpdatePoints(10);            
+            updatePoints.CallEventInt(10);
         }
         if (collision.gameObject.tag == "Estrella")
         {
             collision.gameObject.SetActive(false);
-            GameController.OnWin?.Invoke();
+            win.CallEventGeneral();
         }
         if (collision.gameObject.tag == "Muerte")
-        {           
-            GameController.OnLose?.Invoke();
+        {
+            lose.CallEventGeneral();
         }
     }
   
@@ -166,6 +173,6 @@ public class PlayerController : MonoBehaviour
     }
     private void OnDisable()
     {
-        GameController.OnLose?.Invoke();
+        lose.CallEventGeneral();
     }
 }

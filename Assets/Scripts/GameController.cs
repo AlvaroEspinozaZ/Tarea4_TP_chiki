@@ -11,6 +11,10 @@ public class GameController : MonoBehaviour
     public static Action OnLose;
     public  GameObject PanelWin;
     public GameObject PanelLose;
+
+    [Header("Handlers")]
+    [SerializeField] private HandleMessage lose;
+    [SerializeField] private HandleMessage win;
     private void Awake()
     {
         Time.timeScale = 1;
@@ -22,8 +26,10 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
-        OnWin = GoWin;
-        OnLose = GoEnd;
+        //OnWin = GoWin;
+        //OnLose = GoEnd;
+        lose.ActionGeneral += GoEnd;
+        win.ActionGeneral += GoWin;
     }
 
     private void GoWin()
