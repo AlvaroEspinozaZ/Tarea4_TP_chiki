@@ -24,10 +24,16 @@ public class PlayerController : MonoBehaviour
     public LayerMask layer;
 
     [Header("Handlers")]
-    [SerializeField] private HandleMessage updateLife;
-    [SerializeField] private HandleMessage updatePoints;
-    [SerializeField] private HandleMessage win;
-    [SerializeField] private HandleMessage lose;
+    //[SerializeField] private HandleMessage updateLife;
+    //[SerializeField] private HandleMessage updatePoints;
+    //[SerializeField] private HandleMessage win;
+    //[SerializeField] private HandleMessage lose;
+    [Header("GameEvent")]
+    [SerializeField] private GameEvent updateLife;
+    [SerializeField] private GameEvent updatePoints;
+    [SerializeField] private GameEvent win;
+    [SerializeField] private GameEvent lose;
+
     private void Awake()
     {
         rgb = GetComponent<Rigidbody2D>();
@@ -116,7 +122,8 @@ public class PlayerController : MonoBehaviour
         {
             //corazones
             collision.gameObject.SetActive(false);
-            updateLife.CallEventInt(5);
+            //updateLife.CallEventInt(5);
+            updateLife.Raise(5);
 
         }
         if (collision.gameObject.layer == 7)
@@ -126,7 +133,8 @@ public class PlayerController : MonoBehaviour
             if (gameObject.GetComponent<SpriteRenderer>().color != collision.gameObject.GetComponent<SpriteRenderer>().color)
             {                
                 Debug.Log("ChocasteConUnazules");
-                updateLife.CallEventInt(-7);
+                //updateLife.CallEventInt(-7);
+                updateLife.Raise(-7);
             }
         }
         if (collision.gameObject.layer == 8)
@@ -136,7 +144,8 @@ public class PlayerController : MonoBehaviour
             if (gameObject.GetComponent<SpriteRenderer>().color!= collision.gameObject.GetComponent<SpriteRenderer>().color)
             {                
                 Debug.Log("ChocasteConUnVerde");
-                updateLife.CallEventInt(-5);
+                //updateLife.CallEventInt(-5);
+                updateLife.Raise(-5);
 
             }
 
@@ -145,16 +154,19 @@ public class PlayerController : MonoBehaviour
         {
             collision.gameObject.SetActive(false);
             //PointSystem.UpdatePoints(10);            
-            updatePoints.CallEventInt(10);
+            //updatePoints.CallEventInt(10);
+            updatePoints.Raise(10);
         }
         if (collision.gameObject.tag == "Estrella")
         {
             collision.gameObject.SetActive(false);
-            win.CallEventGeneral();
+            //win.CallEventGeneral();
+            win.Raise();
         }
         if (collision.gameObject.tag == "Muerte")
         {
-            lose.CallEventGeneral();
+            //lose.CallEventGeneral();
+            lose.Raise();
         }
     }
   
@@ -173,6 +185,6 @@ public class PlayerController : MonoBehaviour
     }
     private void OnDisable()
     {
-        lose.CallEventGeneral();
+        //lose.CallEventGeneral();
     }
 }

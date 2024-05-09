@@ -39,13 +39,13 @@ public class GameController : MonoBehaviour
         win.ActionGeneral += GoWin;
     }
 
-    private void GoWin()
+    public void GoWin()
     {
         //PanelWin.SetActive(true);
         Time.timeScale = 0;
         scenes.IrScene(2);
     }
-    private void GoEnd()
+    public void GoEnd()
     {
         //PanelLose.SetActive(true);
         Time.timeScale = 0;

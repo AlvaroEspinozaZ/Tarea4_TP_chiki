@@ -18,7 +18,7 @@ public class PointSystem : MonoBehaviour
         //UpdatePoints = CurrentPoints;
         updatePoints.ActionGeneralInt += CurrentPoints;
     }
-    private void CurrentPoints(int pnts)
+    public void CurrentPoints(int pnts)
     {
         score.ValueInt += pnts;
     }

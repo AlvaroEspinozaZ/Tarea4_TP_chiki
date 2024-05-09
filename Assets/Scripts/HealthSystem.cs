@@ -20,7 +20,7 @@ public class HealthSystem : MonoBehaviour
         updateLife.ActionGeneralInt += CurrentVida;
     }
 
-    private void CurrentVida(int damage)
+    public void CurrentVida(int damage)
     {
         health += damage;
         if (health <= 0)
